@@ -1,0 +1,3 @@
+module LoopingChallenge
+
+go 1.21.5
