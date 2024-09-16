@@ -38,8 +38,24 @@ func listBuah(buah *[]string) {
 	}
 }
 
-func tambahDataFilm(dataFilm *[]map){
+func tambahDataFilm(title,duration,genre,year string, dataFilm *[]map[string]string){
+	film := map[string]string{
+		"title": title,
+		"duration": duration,
+		"genre" : genre,
+		"year": year,
+	}
+	*dataFilm = append(*dataFilm, film)
+}
 
+func showDataFilm(dataFilm[]map[string]string){
+	for i, film := range dataFilm {
+		fmt.Printf("%d. title: %s\n", i+1, film["title"])
+		fmt.Printf("	duration: %s\n", film["duration"])
+		fmt.Printf("	genre: %s\n", film["genre"])
+		fmt.Printf("	year : %s\n", film["year"])
+		fmt.Println()
+	}
 }
 
 func main() {
@@ -68,4 +84,5 @@ func main() {
 	tambahDataFilm("avenger", "2 jam", "action", "2019", &dataFilm)
 	tambahDataFilm("spiderman", "2 jam", "action", "2004", &dataFilm)
 	tambahDataFilm("juon", "2 jam", "horror", "2004", &dataFilm)
+	showDataFilm(dataFilm)
 }
