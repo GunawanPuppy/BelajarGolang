@@ -26,6 +26,31 @@ func main() {
 		fmt.Println()
 	}
 	//!Soal 3
-	var kalimat = [...]string{"aku","dan","saya","sangat","senang","belajar","golang"}
-	
+	var kalimat = [...]string{"aku", "dan", "saya", "sangat", "senang", "belajar", "golang"}
+	//slicing array
+	fmt.Println(kalimat[2:7])
+
+	//!Soal 4
+	var sayuran = []string{}
+	//push array menggunakan append
+	sayuran = append(sayuran, "Bayam", "Buncis", "Kangkung", "Kubis", "Seledri", "Tauge", "Timun")
+	fmt.Print(sayuran)
+	for i := 0; i < len(sayuran); i++ {
+		var data = fmt.Sprintf(`%d. %s`, i, sayuran[i])
+		fmt.Println(data)
+	}
+
+	//!Soal 5
+	var satuan = map[string]int{
+		"panjang": 7,
+		"lebar":   4,
+		"tinggi":  6,
+	}
+	for key, value := range satuan {
+		fmt.Println(key, "=", value)
+	}
+	volume := satuan["panjang"] * satuan["lebar"] * satuan["tinggi"]
+	fmt.Println(`Volume Balok =`,volume)
+
+	//!Soal 6
 }
