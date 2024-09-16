@@ -18,16 +18,36 @@ func volumeBalok(panjang int, lebar int, tinggi int) {
 }
 
 func main() {
+	//soal 1
 	panjang := 12
 	lebar := 4
 	tinggi := 8
 	LuasPersegiPanjang(panjang, lebar)
 	kelilingPersegiPanjang(panjang, lebar)
 	volumeBalok(panjang, lebar, tinggi)
+	//soal 2
 	fmt.Println(introduce("Sarah", "perempuan", "penulis", "30"))
+	//soal 3
 	var buah = []string{"semangka", "jeruk", "melon", "pepaya"}
 	var buahFavoritJohn = buahFavorit("John", buah...)
 	fmt.Println(buahFavoritJohn)
+	//!Soal 4
+	var dataFilm = []map[string]string{}
+	tambahDataFilm := func(title,duration, genre, tahun string){
+		dataFilm= append(dataFilm, map[string]string{
+			"title": title,
+			"duration": duration,
+			"genre": genre,
+			"tahun": tahun,
+		})
+	}
+	tambahDataFilm("LOTR","2 jam", "action", "1999")
+	tambahDataFilm("avenger","2 jam", "action", "2019")
+	tambahDataFilm("spiderman", "2 jam", "action", "2004")
+	tambahDataFilm("juon", "2 jam", "horror", "2004")
+	for _, value := range dataFilm{
+		fmt.Println(value)
+	}
 }
 
 // ! Soal 2
@@ -52,8 +72,7 @@ func buahFavorit(name string, buah ...string)(output string) {
 	return output
 }
 
-// !Soal 4
-//Closure Function
+
 
 
 
