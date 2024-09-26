@@ -15,3 +15,7 @@
 ## Menutup Channel
 - Pengirim punya kemampuan menutup channel utk memberitahu penerima sudah tidak ada data lagi
 - Penerima dpt memberikan tambahan kondisi apakah channel uda ditutup atau belum
+
+## Select
+- Cara kerja mirip seperti switch, dimana digunakan untuk melakukan seleksi terhadap kondisi
+- Definisi: proses utk memvalidasi kondisi ketika punya lebih dari 1 channel dalam 1 goroutine yang jalan
