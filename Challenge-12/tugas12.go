@@ -93,6 +93,6 @@ func main() {
 	//Routing dan panggil function yg nerima req res
 	http.HandleFunc("/test",handler)
 	fmt.Println("Jalan Boss")
-	//Menentukan port nya 
+	//Menentukan port nya harus pakai :
 	http.ListenAndServe(":3000",nil)
 }
