@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"math"
+	"net/http"
 )
 
 // Singular
@@ -12,6 +14,34 @@ type Phone struct {
 	Model  string `json: "model"`
 }
 
+type Book struct {
+	Title, Desc, Author string
+	ReleaseYear         int
+}
+
+func CircleArea(JariJari float64) float64{
+	luas:= math.Pi * JariJari * JariJari
+	return luas
+}
+
+func Circumference(JariJari float64) float64{
+	keliling := math.Pi * 2* JariJari
+	return keliling
+}
+
+func TubeVolume(JariJari,tinggi float64) float64{
+	volume := math.Pi * JariJari * JariJari * tinggi
+	return volume
+}
+func handler(w http.ResponseWriter, JariJari *http.Request){
+	jariJari := 7.0
+	tinggi := 10.0
+	//Hitung Hasil
+	luasLingkaran := CircleArea(jariJari)
+	kelilingLingkaran := Circumference(jariJari)
+	volumeTabung := TubeVolume(jariJari,tinggi)
+	fmt.Fprintf(w, "jariJari: %.2f, tinggi :%.2f, volume: %.2f, luas alas: %.2f, keliling alas: %.2f", jariJari,tinggi,volumeTabung,luasLingkaran,kelilingLingkaran)
+}
 func main() {
 	//!Soal 1
 	var jsonString = `[{"vendor":"Acer","model":"beTouch E110"},{"vendor":"Acer","model":"beTouch E120"},{"vendor":"Acer","model":"beTouch E130"},{"vendor":"Acer","model":"beTouch E140"},{"vendor":"Acer","model":"beTouch E200"},{"vendor":"Acer","model":"beTouch E400"},{"vendor":"Acer","model":"Liquid"},{"vendor":"Acer","model":"Liquid E"},{"vendor":"Acer","model":"Liquid Metal"},{"vendor":"Acer","model":"neoTouch P300"},{"vendor":"Acer","model":"neoTouch P400"},{"vendor":"Acer","model":"Stream"},{"vendor":"Alcatel","model":"One Touch 701"},{"vendor":"Alcatel","model":"One Touch 715"},{"vendor":"Alcatel","model":"OT-980"},{"vendor":"Apple","model":"iPhone"},{"vendor":"Apple","model":"iPhone 3G"},{"vendor":"Apple","model":"iPhone 3GS"},{"vendor":"Apple","model":"iPhone 4"},{"vendor":"Apple","model":"iPhone 4S"},{"vendor":"Apple","model":"Iphone 5"},{"vendor":"BenQ-Siemens","model":"C81"},{"vendor":"BenQ-Siemens","model":"CF61"},{"vendor":"BenQ-Siemens","model":"CL71"},{"vendor":"BenQ-Siemens","model":"E61"},{"vendor":"BenQ-Siemens","model":"EL71"},{"vendor":"BenQ-Siemens","model":"P51"},{"vendor":"Dell","model":"Aero"},{"vendor":"Dell","model":"Streak"},{"vendor":"Dell","model":"Venue"},{"vendor":"Dell","model":"Venue Pro"},{"vendor":"Ericsson","model":"A3618s"},{"vendor":"Ericsson","model":"R380"},{"vendor":"Ericsson","model":"R520"},{"vendor":"Ericsson","model":"R600"},{"vendor":"Ericsson","model":"T29s"},{"vendor":"Ericsson","model":"T39"},{"vendor":"Ericsson","model":"T60d"},{"vendor":"Ericsson","model":"T65"},{"vendor":"Ericsson","model":"T66"},{"vendor":"Ericsson","model":"T68"},{"vendor":"Garmin-Asus","model":"nuvifone A50"},{"vendor":"Garmin-Asus","model":"nuvifone M10"},{"vendor":"HP","model":"Pre 3"},{"vendor":"HP","model":"Veer"},{"vendor":"HTC","model":"7 Mozart"},{"vendor":"HTC","model":"7 Pro"},{"vendor":"HTC","model":"7 Surround"},{"vendor":"HTC","model":"7 Trophy"},{"vendor":"HTC","model":"Advantage X7500"},{"vendor":"HTC","model":"Aria"},{"vendor":"HTC","model":"Arrive"},{"vendor":"HTC","model":"ChaCha"},{"vendor":"HTC","model":"Desire"},{"vendor":"HTC","model":"Desire C"},{"vendor":"HTC","model":"Desire C NFC"},{"vendor":"HTC","model":"Desire HD"},{"vendor":"HTC","model":"Desire S"},{"vendor":"HTC","model":"Desire VC"},{"vendor":"HTC","model":"Desire X"},{"vendor":"HTC","model":"Desire Z"},{"vendor":"HTC","model":"Droid Incredible"},{"vendor":"HTC","model":"EVO 3D"},{"vendor":"HTC","model":"EVO 4G"},{"vendor":"HTC","model":"EVO 4G LTE"},{"vendor":"HTC","model":"EVO Shift 4g"},{"vendor":"HTC","model":"Explorer"},{"vendor":"HTC","model":"Freestyle"},{"vendor":"HTC","model":"G1"},{"vendor":"HTC","model":"Google Nexus One"},{"vendor":"HTC","model":"Gratia"},{"vendor":"HTC","model":"HD Mini"},{"vendor":"HTC","model":"HD2"},{"vendor":"HTC","model":"HD7"},{"vendor":"HTC","model":"HD7S"},{"vendor":"HTC","model":"Hero"},{"vendor":"HTC","model":"Incredible S"},{"vendor":"HTC","model":"Inspire 4G"},{"vendor":"HTC","model":"J"},{"vendor":"HTC","model":"J Butterfly HTL21"},{"vendor":"HTC","model":"Legend"},{"vendor":"HTC","model":"Magic"},{"vendor":"HTC","model":"myTouch 3G Slide"},{"vendor":"HTC","model":"myTouch 4G"},{"vendor":"HTC","model":"One S"},{"vendor":"HTC","model":"One SV"},{"vendor":"HTC","model":"One V"},{"vendor":"HTC","model":"One X"},{"vendor":"HTC","model":"One X+"},{"vendor":"HTC","model":"Ozone"},{"vendor":"HTC","model":"P3300"},{"vendor":"HTC","model":"P3470"},{"vendor":"HTC","model":"P4350"},{"vendor":"HTC","model":"P6300"},{"vendor":"HTC","model":"P6500"},{"vendor":"HTC","model":"Radar"},{"vendor":"HTC","model":"Rhyme"},{"vendor":"HTC","model":"S310"},{"vendor":"HTC","model":"S620"},{"vendor":"HTC","model":"S710"},{"vendor":"HTC","model":"S730"},{"vendor":"HTC","model":"S740"},{"vendor":"HTC","model":"Sensation"},{"vendor":"HTC","model":"Sensation XE"},{"vendor":"HTC","model":"Sensation XL"},{"vendor":"HTC","model":"Shift"},{"vendor":"HTC","model":"Smart"},{"vendor":"HTC","model":"Snap"},{"vendor":"HTC","model":"Tattoo"},{"vendor":"HTC","model":"Thunderbolt"},{"vendor":"HTC","model":"Titan"},{"vendor":"HTC","model":"Titan II"},{"vendor":"HTC","model":"Touch"},{"vendor":"HTC","model":"Touch 3G"},{"vendor":"HTC","model":"Touch Cruise"},{"vendor":"HTC","model":"Touch Cruise 09"},{"vendor":"HTC","model":"Touch Diamond"},{"vendor":"HTC","model":"Touch Diamond 2"},{"vendor":"HTC","model":"Touch Dual"},{"vendor":"HTC","model":"Touch HD"},{"vendor":"HTC","model":"Touch Pro"},{"vendor":"HTC","model":"Touch Pro 2"},{"vendor":"HTC","model":"Touch Viva"},{"vendor":"HTC","model":"Touch2 T3333"},{"vendor":"HTC","model":"Trinity P3600"},{"vendor":"HTC","model":"TyTN II"},{"vendor":"HTC","model":"Wildfire"},{"vendor":"HTC","model":"Wildfire S"},{"vendor":"HTC","model":"Windows Phone 8S"},{"vendor":"HTC","model":"Windows Phone 8X"},{"vendor":"Huawei","model":"Ascend D quad"},{"vendor":"Huawei","model":"Ascend D1 Quad"},{"vendor":"Huawei","model":"Ascend G300 U8815"},{"vendor":"Huawei","model":"Ascend G600"},{"vendor":"Huawei","model":"Ascend P1"},{"vendor":"Kyocera","model":"Echo"},{"vendor":"LG","model":"7100"},{"vendor":"LG","model":"A120"},{"vendor":"LG","model":"A165"},{"vendor":"LG","model":"BL20 Chocolate"},{"vendor":"LG","model":"BL40 Chocolate"},{"vendor":"LG","model":"C105"},{"vendor":"LG","model":"C300"},{"vendor":"LG","model":"C310"},{"vendor":"LG","model":"Cookie Lite T300"},{"vendor":"LG","model":"Cookie Snap GM360i"},{"vendor":"LG","model":"Cosmos Touch VN270"},{"vendor":"LG","model":"enV Touch VX11000"},{"vendor":"LG","model":"eXpo GW820"},{"vendor":"LG","model":"F2300"},{"vendor":"LG","model":"G5300"},{"vendor":"LG","model":"G5400"},{"vendor":"LG","model":"G7000"},{"vendor":"LG","model":"GC900 Viewty Smart"},{"vendor":"LG","model":"GD510 Pop"},{"vendor":"LG","model":"GD900 Crystal"},{"vendor":"LG","model":"GS101"},{"vendor":"LG","model":"GS108"},{"vendor":"LG","model":"GT550 Encore"},{"vendor":"LG","model":"GW520"},{"vendor":"LG","model":"KC910 Renoir"},{"vendor":"LG","model":"KE970 Shine"},{"vendor":"LG","model":"KF510"},{"vendor":"LG","model":"KF600"},{"vendor":"LG","model":"KF700"},{"vendor":"LG","model":"KF750 Secret"},{"vendor":"LG","model":"KF900 Prada"},{"vendor":"LG","model":"KM900 Arena"},{"vendor":"LG","model":"KP500 Cookie"},{"vendor":"LG","model":"KS360"},{"vendor":"LG","model":"KU990 Viewty"},{"vendor":"LG","model":"M4410"},{"vendor":"LG","model":"Mini GD880"},{"vendor":"LG","model":"Nexus 4"},{"vendor":"LG","model":"Optimus 2X P990"},{"vendor":"LG","model":"Optimus 3D Max P720"},{"vendor":"LG","model":"Optimus 3D P920"},{"vendor":"LG","model":"Optimus 4X HD"},{"vendor":"LG","model":"Optimus 7 E900"},{"vendor":"LG","model":"Optimus 7Q - C900"},{"vendor":"LG","model":"Optimus Black P970"},{"vendor":"LG","model":"Optimus Chic E720"},{"vendor":"LG","model":"Optimus G"},{"vendor":"LG","model":"Optimus GT540"},{"vendor":"LG","model":"Optimus Hub E510"},{"vendor":"LG","model":"Optimus L3"},{"vendor":"LG","model":"Optimus L5"},{"vendor":"LG","model":"Optimus L5 Dual E612"},{"vendor":"LG","model":"Optimus L7 P700"},{"vendor":"LG","model":"Optimus L9"},{"vendor":"LG","model":"Optimus Me P350"},{"vendor":"LG","model":"Optimus Net P690"},{"vendor":"LG","model":"Optimus One P500"},{"vendor":"LG","model":"Optimus Pro C660"},{"vendor":"LG","model":"Optimus Sol E730"},{"vendor":"LG","model":"Optimus V"},{"vendor":"LG","model":"Optimus Vu"},{"vendor":"LG","model":"P520"},{"vendor":"LG","model":"P7200"},{"vendor":"LG","model":"Prada 3.0"},{"vendor":"LG","model":"Revolution"},{"vendor":"LG","model":"S310"},{"vendor":"LG","model":"Viewty GT400"},{"vendor":"LG","model":"Vu Plus"},{"vendor":"LG","model":"X330"},{"vendor":"LG","model":"Xenon GR500"},{"vendor":"Meizu","model":"Mx"},{"vendor":"Motorola","model":"A1000"},{"vendor":"Motorola","model":"A388c"},{"vendor":"Motorola","model":"A835"},{"vendor":"Motorola","model":"Admiral"},{"vendor":"Motorola","model":"Atrix 4G"},{"vendor":"Motorola","model":"Aura"},{"vendor":"Motorola","model":"Backflip"},{"vendor":"Motorola","model":"Barrage"},{"vendor":"Motorola","model":"Bravo"},{"vendor":"Motorola","model":"Brute i686"},{"vendor":"Motorola","model":"C350"},{"vendor":"Motorola","model":"Charm Motoblur"},{"vendor":"Motorola","model":"CLIQ 2"},{"vendor":"Motorola","model":"CLIQ MB200"},{"vendor":"Motorola","model":"Defy"},{"vendor":"Motorola","model":"Defy Mini"},{"vendor":"Motorola","model":"Defy Plus"},{"vendor":"Motorola","model":"Devour"},{"vendor":"Motorola","model":"DEXT MB200"},{"vendor":"Motorola","model":"Droid"},{"vendor":"Motorola","model":"Droid 2"},{"vendor":"Motorola","model":"Droid 2 Global"},{"vendor":"Motorola","model":"Droid 3"},{"vendor":"Motorola","model":"Droid 4"},{"vendor":"Motorola","model":"Droid Bionic"},{"vendor":"Motorola","model":"Droid Pro"},{"vendor":"Motorola","model":"Droid Razr HD"},{"vendor":"Motorola","model":"Droid Razr M"},{"vendor":"Motorola","model":"Droid Razr Maxx"},{"vendor":"Motorola","model":"Droid Razr Maxx HD"},{"vendor":"Motorola","model":"Droid Razr XT912"},{"vendor":"Motorola","model":"Droid X"},{"vendor":"Motorola","model":"Droid X2"},{"vendor":"Motorola","model":"E398"},{"vendor":"Motorola","model":"EX128"},{"vendor":"Motorola","model":"Flipout"},{"vendor":"Motorola","model":"Gleam Plus"},{"vendor":"Motorola","model":"Karma Qa1"},{"vendor":"Motorola","model":"Milestone"},{"vendor":"Motorola","model":"Milestone 2"},{"vendor":"Motorola","model":"Milestone XT720"},{"vendor":"Motorola","model":"MOTO RAZR V3"},{"vendor":"Motorola","model":"Motoluxe"},{"vendor":"Motorola","model":"Motoroi"},{"vendor":"Motorola","model":"Motosmart"},{"vendor":"Motorola","model":"MPx"},{"vendor":"Motorola","model":"MPx200"},{"vendor":"Motorola","model":"PEBL"},{"vendor":"Motorola","model":"Photon 4G"},{"vendor":"Motorola","model":"Pro+"},{"vendor":"Motorola","model":"Quench"},{"vendor":"Motorola","model":"Quench XT3 XT502"},{"vendor":"Motorola","model":"Quench XT5 XT502"},{"vendor":"Motorola","model":"RAZR"},
@@ -43,5 +73,26 @@ func main() {
 			fmt.Printf("Vendor : %s, Model:%s\n", phone.Vendor, phone.Model)
 		}
 	}
-
+	//!Soal 3
+	books := []Book{
+		{Title: "Go", Desc: "Programming", Author: "Me", ReleaseYear: 2023},
+		{Title: "Ga", Desc: "Programmingg", Author: "Me", ReleaseYear: 2021},
+		{Title: "Gi", Desc: "Programminggg", Author: "Me", ReleaseYear: 2024},
+		{Title: "Gu", Desc: "Programmingggg", Author: "Me", ReleaseYear: 2022},
+	}
+	//hasil konversi menjadi []byte
+	var jsonData, errorss = json.Marshal(books)
+	if errorss != nil {
+		fmt.Println(errorss.Error())
+		return
+	}
+	//casting ke jsonString
+	var dataString = string(jsonData)
+	fmt.Println(dataString)
+	//!Soal 4 
+	//Routing dan panggil function yg nerima req res
+	http.HandleFunc("/test",handler)
+	fmt.Println("Jalan Boss")
+	//Menentukan port nya 
+	http.ListenAndServe(":3000",nil)
 }
